@@ -6,7 +6,7 @@
 
 #include "input.h"
 
-#define BOARD_X 20
+#define BOARD_X 10
 #define BOARD_Y 10
 
 typedef enum direction Direction;
@@ -58,9 +58,9 @@ int main(void) {
     Snake *s = malloc(sizeof(Snake));
 
     s->x = rand() % (BOARD_X - 3);
-    if (s->x == 0) s->x++;
+    if (s->x == 0) s->x += 3;
     s->y = rand() % (BOARD_Y - 3);
-    if (s->x == 0) s->y++;
+    if (s->x == 0) s->y += 3;
 
     s->d = rand() % 4;
     s->next = NULL;
@@ -100,7 +100,7 @@ void printBoard(char board[BOARD_Y][BOARD_X]) {
 
     for (int i = 0; i < BOARD_Y; i++) {
         for (int j = 0; j < BOARD_X; j++) {
-            printf("%c", board[i][j]);
+            printf("%c  ", board[i][j]);
         }
         printf("\n");
     }
@@ -129,7 +129,6 @@ Snake *updateBoard(char board[BOARD_Y][BOARD_X], Snake *s, Apple *a) {
     board[a->y][a->x] = '*';
 
     // Draw snake
-
     Snake *curr = s->next;
     while (curr != NULL) {
         switch (curr->d) {
